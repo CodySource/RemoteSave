@@ -99,7 +99,11 @@ namespace CodySource
                     "if (!isset($_POST['payload'])) Error('Missing data!');\n" +
                     "if (!isset($_GET['load'])) // SAVE\n" +
                     "{\n" +
-                    "\ttry { $obj = json_decode($_POST['payload']); $key = $obj->key; $val = $obj->val; }\n" +
+                    "\ttry {\n" +
+                    "\t\t$obj = json_decode($_POST['payload']);\n" +
+                    "\t\tif ($obj == null) throw new Exception('Invalid json payload!');\n" +
+                    "\t\t$key = preg_replace('/[^\\w]/','',$obj->key);\n" +
+                    "\t\t$val = preg_replace('/[^\\w.! {}:,\\[\\]\"]/ ','',$obj->val); }\n" +
                     "\tcatch (Exception $e) {Error('Invalid json payload!');}\n" +
                     "\tif (ConnectToDB()) {\n" +
                     "\t\tif (VerifyTables()) {\n" +
@@ -112,7 +116,11 @@ namespace CodySource
                     "}\n" +
                     "else\n" +
                     "{\n" +
-                    "\ttry { $obj = json_decode($_POST['payload']); $key = $obj->key; }\n" +
+                    "\ttry {\n" +
+                    "\t\t$obj = json_decode($_POST['payload']);\n" +
+                    "\t\tif ($obj == null) throw new Exception('Invalid json payload!');\n" +
+                    "\t\t$key = preg_replace('/[^\\w]/','',$obj->key);\n" +
+                    "\t}\n" +
                     "\tcatch (Exception $e) {Error('Invalid json payload!');}\n" +
                     "\tif (ConnectToDB()) {\n" +
                     "\t\tif (PullValue($key)) $mysqli->close();\n" +
