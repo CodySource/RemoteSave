@@ -1,0 +1,13 @@
+{
+  "name": "com.codysource.remotesave",
+  "version": "1.0.0",
+  "displayName": "Remote Save",
+  "description": "This package allows for quick remote saves/loads to/from a php mysql database.",
+  "unity": "2020.3",
+  "unityRelease": "15f2",
+  "dependencies": {
+ },
+  "author": {
+    "name": "Cody Source"
+  }
+}
