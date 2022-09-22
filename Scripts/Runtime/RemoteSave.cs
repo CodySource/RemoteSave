@@ -165,7 +165,7 @@ namespace CodySource
                     "function VerifyTables()\n" +
                     "{\n" +
                     "\tglobal $mysqli, $timestamp;\n" +
-                    "\tif ($mysqli->query('CREATE TABLE IF NOT EXISTS '.tableName.' (saveKey VARCHAR(1023) PRIMARY KEY, saveVal VARCHAR(1023)); ')) return true;\n" +
+                    "\tif ($mysqli->query('CREATE TABLE IF NOT EXISTS '.tableName.' (saveKey VARCHAR(1023) PRIMARY KEY, saveVal TEXT); ')) return true;\n" +
                     "\terror_log('Verify Tables Error: '.$mysqli->error,0);\n" +
                     "\treturn false;\n" +
                     "}\n" +
