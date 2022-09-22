@@ -103,7 +103,7 @@ namespace CodySource
                     "\t\t$obj = json_decode($_POST['payload']);\n" +
                     "\t\tif ($obj == null) throw new Exception('Invalid json payload!');\n" +
                     "\t\t$key = preg_replace('/[^\\w]/','',$obj->key);\n" +
-                    "\t\t$val = preg_replace('/[^\\w.! {}:,\\[\\]\"]/ ','',$obj->val); }\n" +
+                    "\t\t$val = preg_replace('/[^\\w.! {}:,\\[\\]\"]/','',$obj->val); }\n" +
                     "\tcatch (Exception $e) {Error('Invalid json payload!');}\n" +
                     "\tif (ConnectToDB()) {\n" +
                     "\t\tif (VerifyTables()) {\n" +
