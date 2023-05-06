@@ -22,6 +22,7 @@ namespace CodySource
             [Header("CONFIG")]
             public string url = "";
             public string table = "";
+            public bool overwrite = true;
             public string auth = "";
             public string appKey = "";
 
@@ -60,6 +61,7 @@ namespace CodySource
                 form.AddField("auth", auth);
                 form.AddField("appKey", sha256(appKey + Regex.Replace(auth, @"/[^\w]/", "").ToUpper()));
                 form.AddField("table", table);
+                if (overwrite) form.AddField("overwrite", overwrite.ToString());
 #if UNITY_EDITOR
                 form.AddField("editor", Regex.Replace(auth, @"/[^\w]/", "").ToUpper());
 #endif
