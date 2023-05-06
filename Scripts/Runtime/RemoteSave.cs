@@ -38,6 +38,8 @@ namespace CodySource
 
             public void SetUrl(string pURL) => url = pURL;
             public void SetTable(string pTable) => table = pTable;
+            public void SetAuth(string pAuth) => auth = pAuth;
+            public void SetOverwrite(bool pOverwrite) => overwrite = pOverwrite;
             public void Save(string pVal) => StartCoroutine(_SQL_Request(pVal));
             public void Load() => StartCoroutine(_SQL_Request());
             public void Print(string pVal) => Debug.Log(pVal);
@@ -63,7 +65,7 @@ namespace CodySource
                 if (table == "") Fail("A table has not been set for the save/load request.");
                 if (auth == "") Fail("An auth has not been set for the save/load request.");
                 if (appKey == "") Fail("An appKey has not been set for the save/load request.");
-                if (url == "" || table == "" || auth == "" || appKey == "") yield return null;
+                if (url == "" || table == "" || auth == "" || appKey == "") yield break;
                 WWWForm form = new WWWForm();
                 form.AddField("auth", auth);
                 form.AddField("appKey", sha256(appKey + Regex.Replace(auth, @"/[^\w]/", "").ToUpper()));
