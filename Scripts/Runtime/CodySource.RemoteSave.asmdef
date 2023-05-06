@@ -1,3 +1,16 @@
 {
-	"name": "CodySource.RemoteSave"
+    "name": "CodySource.RemoteSave",
+    "rootNamespace": "",
+    "references": [
+        "GUID:7357560f9b8023d44b6a3c77a333c42d"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }

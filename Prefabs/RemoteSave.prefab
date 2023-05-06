@@ -44,12 +44,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c649c03dde2245d41891a39792b45a77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SQL_URL: 
-  SQL_KEY: 
-  SQL_HOST: 
-  SQL_DB: 
-  SQL_USER: 
-  SQL_PASS: 
+  url: 
+  table: 
+  auth: 
+  appKey: 
   onSaveSuccess:
     m_PersistentCalls:
       m_Calls:
