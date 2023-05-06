@@ -41,6 +41,13 @@ namespace CodySource
             public void Save(string pVal) => StartCoroutine(_SQL_Request(pVal));
             public void Load() => StartCoroutine(_SQL_Request());
             public void Print(string pVal) => Debug.Log(pVal);
+            public void ClearListeners()
+            {
+                onSaveSuccess.RemoveAllListeners();
+                onSaveFailed.RemoveAllListeners();
+                onLoadSuccess.RemoveAllListeners();
+                onLoadFailed.RemoveAllListeners();
+            }
 
             #endregion
 
