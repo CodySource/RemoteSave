@@ -30,8 +30,8 @@
 		$payload = (json_decode($payload) != null) ? json_encode((object)array_merge((array)json_decode($payload),array('timestamp'=>date(DATE_RFC3339)))) : $payload;
 		if (!$mysqli->query("CREATE TABLE IF NOT EXISTS $table (saveKey VARCHAR(1023) PRIMARY KEY, saveVal TEXT);")) o(null, $mysqli->error);
 		$result = (!$overwrite)? $mysqli->query("SELECT * FROM $table") : $mysqli->query("SELECT * FROM $table WHERE saveKey='$auth'");
-		$q = ($result->num_rows == 0 || $overwrite) ? 
-			$mysqli->prepare("INSERT INTO $table (saveKey, saveVal) VALUES('".($overwrite)? $auth : $result->num_rows."', ?)") :
+		$q = ($result->num_rows == 0 || !$overwrite) ? 
+			$mysqli->prepare("INSERT INTO $table (saveKey, saveVal) VALUES('".(($overwrite)? $auth : $result->num_rows)."', ?)") :
 			$mysqli->prepare("UPDATE $table SET saveVal=? WHERE saveKey='$auth'");
 		$q->bind_param('s', $payload);
 		if (!$q->execute()) o(null, $mysqli->error);
