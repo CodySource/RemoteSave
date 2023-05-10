@@ -15,7 +15,9 @@
 	if (!isset($_POST['appKey'])) o(null,'Missing key.');
 	$cookie = preg_replace('/[^\w]/','',strtoupper(((!isset($_COOKIE[COOKIE]))? $_POST['editor']:$_COOKIE[COOKIE])));
 	$auth = preg_replace('/[^\w]/','',strtoupper($_POST['auth']));
-	if (hash('sha256',APP_KEY.$cookie) != $_POST['appKey']) o(null,'Invalid key presented.');
+	$valid = false;
+	foreach (APP_KEYS as $key => $value) $valid = $valid || (hash('sha256',$value.$cookie) == $_POST['appKey']);
+	if (!$valid) o(null,'Invalid key presented.');
 
 	//	Check necessary components
 	if (!isset($_POST['table'])) o(null,'Missing table.');
@@ -41,7 +43,13 @@
 	{
 		$result = ($overwrite) ? $mysqli->query("SELECT * FROM $table WHERE saveKey='$auth'") : $mysqli->query("SELECT * FROM $table");
 		if ($result == null || $result->num_rows == 0) o(null, 'Key not found.');
-		o(($result->fetch_assoc())['saveVal'], null);
+		if ($overwrite) o($result->fetch_assoc()['saveVal'], null);
+		else 
+		{
+			$out = array();
+			while($row = $result->fetch_assoc()) array_push($out, $row['saveVal']);
+			o(json_encode($out), null);
+		}
 	}
 	function o($v,$e){die(json_encode((object)array('value'=>$v,'error'=>$e)));}
 	///	Used to handle any errors
