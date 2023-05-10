@@ -6,7 +6,7 @@
 	const db_NAME = '';
 	const db_USER = '';
 	const db_PASS = '';
-	const APP_KEY = '';
+	const APP_KEY = array('');
 	const COOKIE = '';
 
 	//	Verify authentication
@@ -39,7 +39,7 @@
 	}
 	else
 	{
-		$result = $mysqli->query("SELECT * FROM $table WHERE saveKey='$auth'");
+		$result = (!$overwrite) ? $mysqli->query("SELECT * FROM $table WHERE saveKey='$auth'") : $mysqli->query("SELECT * FROM $table");
 		if ($result == null || $result->num_rows == 0) o(null, 'Key not found.');
 		o(($result->fetch_assoc())['saveVal'], null);
 	}
