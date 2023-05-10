@@ -39,7 +39,7 @@
 	}
 	else
 	{
-		$result = (!$overwrite) ? $mysqli->query("SELECT * FROM $table WHERE saveKey='$auth'") : $mysqli->query("SELECT * FROM $table");
+		$result = ($overwrite) ? $mysqli->query("SELECT * FROM $table WHERE saveKey='$auth'") : $mysqli->query("SELECT * FROM $table");
 		if ($result == null || $result->num_rows == 0) o(null, 'Key not found.');
 		o(($result->fetch_assoc())['saveVal'], null);
 	}
