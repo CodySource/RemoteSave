@@ -42,8 +42,20 @@ namespace CodySource
             public void SetTable(string pTable) => table = pTable;
             public void SetOverwrite(bool pOverwrite) => overwrite = pOverwrite;
             public void SetSaveKey(string pSaveKey) => saveKey = pSaveKey;
+            public void SetAuthAndSaveKey(string pAuth)
+            {
+                auth = pAuth;
+                saveKey = pAuth;
+            }
             public void Save(string pVal) => StartCoroutine(_SQL_Request(pVal));
             public void Load() => StartCoroutine(_SQL_Request());
+            public void LoadAll()
+            {
+                string cache = saveKey;
+                saveKey = "*";
+                StartCoroutine(_SQL_Request());
+                saveKey = cache;
+            }
             public void Print(string pVal) => Debug.Log(pVal);
             public void ClearListeners()
             {
