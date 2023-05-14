@@ -42,7 +42,7 @@
 	}
 	else
 	{
-		$result = ($saveKey != "") ? $mysqli->query("SELECT * FROM $table WHERE saveKey='$saveKey'") : $mysqli->query("SELECT * FROM $table");
+		$result = ($saveKey != "*") ? $mysqli->query("SELECT * FROM $table WHERE saveKey='$saveKey'") : $mysqli->query("SELECT * FROM $table");
 		if ($result == null || $result->num_rows == 0) o(null, 'No data found.');
 		if ($overwrite) o($result->fetch_assoc()['saveVal'], null);
 		else 
