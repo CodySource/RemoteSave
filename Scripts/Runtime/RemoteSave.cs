@@ -21,10 +21,11 @@ namespace CodySource
             /// </summary>
             [Header("CONFIG")]
             public string url = "";
+            public string appKey = "";
+            public string auth = "";
             public string table = "";
             public bool overwrite = true;
-            public string auth = "";
-            public string appKey = "";
+            public string saveKey = "";
 
             [Header("EVENT CONFIG")]
             public UnityEvent<string> onSaveSuccess = new UnityEvent<string>();
@@ -37,9 +38,10 @@ namespace CodySource
             #region PUBLIC METHODS
 
             public void SetUrl(string pURL) => url = pURL;
-            public void SetTable(string pTable) => table = pTable;
             public void SetAuth(string pAuth) => auth = pAuth;
+            public void SetTable(string pTable) => table = pTable;
             public void SetOverwrite(bool pOverwrite) => overwrite = pOverwrite;
+            public void SetSaveKey(string pSaveKey) => saveKey = pSaveKey;
             public void Save(string pVal) => StartCoroutine(_SQL_Request(pVal));
             public void Load() => StartCoroutine(_SQL_Request());
             public void Print(string pVal) => Debug.Log(pVal);
@@ -62,12 +64,13 @@ namespace CodySource
             {
                 bool isSave = pVal != "";
                 if (url == "") Fail("A url has not been set for the save/load request.");
-                if (table == "") Fail("A table has not been set for the save/load request.");
-                if (auth == "") Fail("An auth has not been set for the save/load request.");
                 if (appKey == "") Fail("An appKey has not been set for the save/load request.");
-                if (url == "" || table == "" || auth == "" || appKey == "") yield break;
+                if (auth == "") Fail("An auth has not been set for the save/load request.");
+                if (table == "") Fail("A table has not been set for the save/load request.");
+                if (saveKey == "") Fail("A saveKey has not been set for the save/load request.");
+                if (url == "" || appKey == "" || auth == "" || table == "" || saveKey == "") yield break;
                 WWWForm form = new WWWForm();
-                form.AddField("auth", auth);
+                form.AddField("saveKey", saveKey);
                 form.AddField("appKey", sha256(appKey + Regex.Replace(auth, @"/[^\w]/", "").ToUpper()));
                 form.AddField("table", table);
                 if (overwrite) form.AddField("overwrite", overwrite.ToString());
