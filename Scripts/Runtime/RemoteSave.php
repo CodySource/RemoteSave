@@ -23,8 +23,8 @@
 	$payload = (isset($_POST['payload']))? $_POST['payload'] : "";
 	$isSave = $payload != "";
 	$overwrite = isset($_POST['overwrite']);
-	if ($isSave && !isset($_POST['saveKey'])) o(null,'Missing saveKey.');
-	$saveKey = ($isSave) ? preg_replace('/[^\w]/','',strtoupper($_POST['saveKey'])) : $saveKey;
+	if (isset($_POST['saveKey'])) o(null,'Missing saveKey.');
+	$saveKey = ($_POST['saveKey'] != "*") ? preg_replace('/[^\w]/','',strtoupper($_POST['saveKey'])) : "*";
 
 	$mysqli = new mysqli(db_HOST, db_USER, db_PASS, db_NAME);
 	if ($mysqli->connect_errno) o(null, $mysqli->connect_error);
