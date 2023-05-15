@@ -30,7 +30,7 @@
 	if ($mysqli->connect_errno) o(null, $mysqli->connect_error);
 	if ($isSave)
 	{
-		$payload = (json_decode($payload) != null) ? json_encode((object)array_merge((array)json_decode($payload),array('timestamp'=>date(DATE_RFC3339)))) : $payload;
+		$payload = (json_decode($payload) != null) ? json_encode((object)array_merge((array)json_decode($payload),array('_timestamp'=>date(DATE_RFC3339)))) : $payload;
 		if (!$mysqli->query("CREATE TABLE IF NOT EXISTS $table (saveKey VARCHAR(1023) PRIMARY KEY, saveVal TEXT);")) o(null, $mysqli->error);
 		$result = (!$overwrite)? $mysqli->query("SELECT * FROM $table") : $mysqli->query("SELECT * FROM $table WHERE saveKey='$saveKey'");
 		$q = ($result->num_rows == 0 || !$overwrite) ? 
