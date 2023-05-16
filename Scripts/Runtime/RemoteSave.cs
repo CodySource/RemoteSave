@@ -26,6 +26,8 @@ namespace CodySource
             public string table = "";
             public bool overwrite = true;
             public string saveKey = "";
+            public bool isLoading => _isLoading;
+            private bool _isLoading = false;
 
             [Header("EVENT CONFIG")]
             public UnityEvent<string> onSaveSuccess = new UnityEvent<string>();
@@ -74,6 +76,7 @@ namespace CodySource
             /// </summary>
             internal IEnumerator _SQL_Request(string pVal = "")
             {
+                _isLoading = true;
                 bool isSave = pVal != "";
                 if (url == "") Fail("A url has not been set for the save/load request.");
                 if (appKey == "") Fail("An appKey has not been set for the save/load request.");
@@ -93,6 +96,7 @@ namespace CodySource
                 using (UnityWebRequest www = UnityWebRequest.Post(url, form))
                 {
                     yield return www.SendWebRequest();
+                    _isLoading = false;
                     if (www.result != UnityWebRequest.Result.Success) Fail(www.error);
                     else
                     {
