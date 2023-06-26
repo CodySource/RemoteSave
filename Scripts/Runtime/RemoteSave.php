@@ -8,6 +8,7 @@
 	const db_PASS = '';
 	const APP_KEY = array('');
 	const COOKIE = '';
+	const keyFilter = '/./';
 
 	//	Verify authentication
 	if (!isset($_COOKIE[COOKIE]) && !isset($_POST['editor'])) o(null,'No credentials available.');
@@ -25,6 +26,7 @@
 	$overwrite = isset($_POST['overwrite']);
 	if (!isset($_POST['saveKey'])) o(null,'Missing saveKey.');
 	$saveKey = ($_POST['saveKey'] != "*") ? preg_replace('/[^\w]/','',strtoupper($_POST['saveKey'])) : "*";
+	if (!preg_match(KEY_FILTER, $saveKey)) o(null, 'Invalid saveKey.');
 
 	$mysqli = new mysqli(db_HOST, db_USER, db_PASS, db_NAME);
 	if ($mysqli->connect_errno) o(null, $mysqli->connect_error);
